@@ -1,3 +1,0 @@
-/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles/HelloWindow.dir
-/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles/edit_cache.dir
-/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles/rebuild_cache.dir

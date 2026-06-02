@@ -10,24 +10,19 @@ Mac と Windows の両方で動作する、最小の C++20 ウィンドウアプ
   - macOS: AppleClang (Xcode Command Line Tools)
   - Windows: Visual Studio 2022 など (MSVC)
 
-## ビルド手順
+## macOS でのビルドと実行
 
 プロジェクトルートで実行:
 
 ```bash
 cmake -S . -B build
 cmake --build build -j
-```
-
-## 実行方法
-
-### macOS
-
-```bash
 ./build/HelloWindow
 ```
 
-### Windows
+## Windows でのビルドと実行
+
+Visual Studio 2022 など、C++開発環境が入ったターミナルでプロジェクトルートから実行:
 
 ```powershell
 cmake -S . -B build

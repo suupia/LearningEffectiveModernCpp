@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/HelloWindow.dir/src/main.cpp.o CMakeFiles/HelloWindow.dir/src/main_macos.mm.o -o HelloWindow  -framework Cocoa
