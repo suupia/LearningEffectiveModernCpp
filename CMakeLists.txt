@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_executable(Item02AutoTypeDeduction src/item02_auto_type_deduction.cpp)
+
 if(WIN32)
   add_executable(HelloWindow WIN32 src/main.cpp src/main_windows.cpp)
   target_compile_definitions(HelloWindow PRIVATE UNICODE _UNICODE)
