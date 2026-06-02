@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/koki/GameDevelop/LearningEffectiveModernCpp/src/main.cpp" "CMakeFiles/HelloWindow.dir/src/main.cpp.o" "gcc" "CMakeFiles/HelloWindow.dir/src/main.cpp.o.d"
   "/Users/koki/GameDevelop/LearningEffectiveModernCpp/src/main_macos.mm" "CMakeFiles/HelloWindow.dir/src/main_macos.mm.o" "gcc" "CMakeFiles/HelloWindow.dir/src/main_macos.mm.o.d"
   )
 

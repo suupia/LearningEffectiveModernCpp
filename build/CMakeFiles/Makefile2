@@ -85,12 +85,12 @@ clean: CMakeFiles/HelloWindow.dir/clean
 CMakeFiles/HelloWindow.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWindow.dir/build.make CMakeFiles/HelloWindow.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWindow.dir/build.make CMakeFiles/HelloWindow.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles --progress-num=1,2 "Built target HelloWindow"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles --progress-num=1,2,3 "Built target HelloWindow"
 .PHONY : CMakeFiles/HelloWindow.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/HelloWindow.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/HelloWindow.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/HelloWindow.dir/rule
@@ -102,7 +102,7 @@ HelloWindow: CMakeFiles/HelloWindow.dir/rule
 # codegen rule for target.
 CMakeFiles/HelloWindow.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HelloWindow.dir/build.make CMakeFiles/HelloWindow.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles --progress-num=1,2 "Finished codegen for target HelloWindow"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/koki/GameDevelop/LearningEffectiveModernCpp/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target HelloWindow"
 .PHONY : CMakeFiles/HelloWindow.dir/codegen
 
 # clean rule for target.

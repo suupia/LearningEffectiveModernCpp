@@ -37,6 +37,7 @@ cmake --build build --config Release
 
 ## ソース構成
 
+- `src/main.cpp` : 共通エントリポイント
 - `src/main_windows.cpp` : Windows (Win32 API)
 - `src/main_macos.mm` : macOS (Cocoa)
 - `CMakeLists.txt` : OSごとのビルド設定

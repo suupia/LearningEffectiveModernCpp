@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, const char* argv[]) {
+int run_platform_app() {
   @autoreleasepool {
     [NSApplication sharedApplication];
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];

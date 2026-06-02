@@ -28,7 +28,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
   return DefWindowProcW(hwnd, uMsg, wParam, lParam);
 }
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int nCmdShow) {
+int run_platform_app() {
+  HINSTANCE hInstance = GetModuleHandleW(nullptr);
+  int nCmdShow = SW_SHOWDEFAULT;
+
   WNDCLASSW wc{};
   wc.lpfnWndProc = WindowProc;
   wc.hInstance = hInstance;
