@@ -1,127 +1,62 @@
-#include <initializer_list>
+// Effective Modern C++の項目3、p17~18のサンプルコードを動かせるようにしたもの。
+// gccでのみ動作確認済み。（マクロの関係でそれ以外で動作しない可能性大）
+
 #include <iostream>
 #include <string_view>
-#include <type_traits>
 #include <vector>
 
+// decltypeの結果を表示するための関数
 template <typename T>
-constexpr std::string_view type_name() {
-#if defined(__clang__)
-  constexpr std::string_view function = __PRETTY_FUNCTION__;
-  constexpr std::string_view prefix = "T = ";
-  constexpr std::string_view suffix = "]";
-#elif defined(__GNUC__)
-  constexpr std::string_view function = __PRETTY_FUNCTION__;
-  constexpr std::string_view prefix = "T = ";
-  constexpr std::string_view suffix = ";";
-#elif defined(_MSC_VER)
-  constexpr std::string_view function = __FUNCSIG__;
-  constexpr std::string_view prefix = "type_name<";
-  constexpr std::string_view suffix = ">(void)";
-#else
-  return "unknown";
-#endif
-
-  const auto start = function.find(prefix) + prefix.size();
-  const auto end = function.find(suffix, start);
-  return function.substr(start, end - start);
+void print_type_impl(std::string_view name) {
+    const std::string_view n = __PRETTY_FUNCTION__;
+    const std::string_view prefix = "[with T = ";
+    const size_t s = n.find(prefix) + prefix.size();
+    const size_t e = n.find(';', s);
+    std::cout << name << " = " << std::string_view(n.data() + s, e - s) << std::endl;
 }
 
-template <typename T>
-void print_type(std::string_view name) {
-  std::cout << name << " : " << type_name<T>() << '\n';
+// decltypeの結果を表示するためのマクロ
+#define MY_PRINT_DECLTYPE(expr) print_type_impl<expr>(#expr)
+
+// サンプルコードのためのクラス、ｋ構造体、関数
+class Widget {};
+struct Point { int x, y; };
+
+bool f(const Widget& w) {
+    MY_PRINT_DECLTYPE(decltype(w));
+    return true;
 }
 
-template <typename T>
-void template_by_value(T) {
-  print_type<T>("template f(T) の T");
-}
-
-template <typename T>
-void template_by_const_ref(const T&) {
-  print_type<T>("template f(const T&) の T");
-}
-
-template <typename T>
-void template_by_forwarding_ref(T&&) {
-  print_type<T>("template f(T&&) の T");
-}
-
-template <typename T>
-void template_initializer_list(std::initializer_list<T>) {
-  print_type<T>("template f(initializer_list<T>) の T");
-}
-
-int test() {
-  int x{0};
-  int& y = x;
-  ++x;
-  std::cout << y << std::endl;
-
-}
-
+// サンプルコードの実行
 int main() {
-  std::cout << "Item 2: auto の型推論を理解する\n\n";
+    std::cout << "[1] const int i = 0; の decltype(i) はそのまま const int になる" << std::endl;
+    const int i = 0;
+    MY_PRINT_DECLTYPE(decltype(i));
+    std::cout << std::endl;
 
-  auto x = 27;
-  const auto cx = x;
-  const auto& rx = x;
+    std::cout << "[2] const Widget& w の場合も、decltype(w) はそのまま const Widget& になる" << std::endl;
+    f(Widget{});
+    std::cout << "    関数をdecltypeに渡した場合、その関数の型がそのまま得られる" << std::endl;
+    MY_PRINT_DECLTYPE(decltype(f));
+    std::cout << std::endl;
 
-  std::cout << "[1] auto はテンプレート型推論にかなり近い\n";
-  print_type<decltype(x)>("auto x = 27");
-  print_type<decltype(cx)>("const auto cx = x");
-  print_type<decltype(rx)>("const auto& rx = x");
-  template_by_value(27);
-  template_by_value(x);
-  template_by_const_ref(x);
+    std::cout << "[3] クラスのメンバをdecltypeに渡した場合、そのメンバの型がそのまま得られる" << std::endl;
+    MY_PRINT_DECLTYPE(decltype(Point::x));
+    MY_PRINT_DECLTYPE(decltype(Point::y));
+    std::cout << std::endl;
 
-  std::cout << "\n[2] auto&& は転送参照として振る舞う\n";
-  auto&& uref1 = x;
-  auto&& uref2 = cx;
-  auto&& uref3 = 27;
-  print_type<decltype(uref1)>("auto&& uref1 = x");
-  print_type<decltype(uref2)>("auto&& uref2 = cx");
-  print_type<decltype(uref3)>("auto&& uref3 = 27");
-  template_by_forwarding_ref(x);
-  template_by_forwarding_ref(cx);
-  template_by_forwarding_ref(27);
+    std::cout << "[4] Widget w; の場合、decltype(w) は Widget になる" << std::endl;
+    Widget w;
+    MY_PRINT_DECLTYPE(decltype(w));
+    std::cout << std::endl;
 
-  std::cout << "\n[3] 波括弧初期化だけは auto とテンプレート型推論で違う\n";
-  auto x1 = 27;
-  auto x2(27);
-  auto x3 = {27};
-  auto x4{27};
-  auto xs = {11, 23, 9};
-  print_type<decltype(x1)>("auto x1 = 27");
-  print_type<decltype(x2)>("auto x2(27)");
-  print_type<decltype(x3)>("auto x3 = {27}");
-  print_type<decltype(x4)>("auto x4{27}");
-  print_type<decltype(xs)>("auto xs = {11, 23, 9}");
+    std::cout << "[5] decltype(f(w)) のように、関数呼び出しをdecltypeに渡した場合、その関数の戻り値の型が得られる" << std::endl;
+    MY_PRINT_DECLTYPE(decltype(f(w)));
+    std::cout << std::endl;
 
-  std::cout << "\n[4] テンプレートは波括弧だけでは T を推論しない\n";
-  template_initializer_list({11, 23, 9});
-  std::cout << "f({11, 23, 9}) は f(T) だとコンパイル不可\n";
-  std::cout << "f(initializer_list<T>) なら T = int と推論できる\n";
-
-  std::cout << "\n[5] 戻り型 auto とラムダ引数 auto はテンプレート型推論側\n";
-  std::cout << "auto createInitList() { return {1, 2, 3}; } はコンパイル不可\n";
-  std::cout << "[](const auto& v){}({1, 2, 3}) もコンパイル不可\n";
-
-  std::vector<int> values{1, 2, 3};
-  auto reset_values = [&values](const std::initializer_list<int> new_values) {
-    values.assign(new_values.begin(), new_values.end());
-  };
-  reset_values({4, 5, 6});
-  std::cout << "明示的に initializer_list<int> を受けるラムダなら代入できる: ";
-  for (const int value : values) {
-    std::cout << value << ' ';
-  }
-  std::cout << '\n';
-
-  static_assert(std::is_same_v<decltype(x1), int>);
-  static_assert(std::is_same_v<decltype(x3), std::initializer_list<int>>);
-  static_assert(std::is_same_v<decltype(x4), int>);
-  static_assert(std::is_same_v<decltype(uref1), int&>);
-  static_assert(std::is_same_v<decltype(uref2), const int&>);
-  static_assert(std::is_same_v<decltype(uref3), int&&>);
+    std::cout << "[6] std::vector<int> v; の場合、decltype(v) は std::vector<int> になる" << std::endl;
+    std::vector<int> v;
+    MY_PRINT_DECLTYPE(decltype(v));
+    std::cout << "    decltype(v[0]) は operator[] の戻り値の型、つまり int& になる" << std::endl;
+    MY_PRINT_DECLTYPE(decltype(v[0]));
 }
