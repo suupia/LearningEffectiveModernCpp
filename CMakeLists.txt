@@ -5,7 +5,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(Item02AutoTypeDeduction src/item02_auto_type_deduction.cpp)
+file(GLOB ITEM_SOURCES CONFIGURE_DEPENDS src/item[0-9][0-9]_*.cpp)
+
+foreach(ITEM_SOURCE IN LISTS ITEM_SOURCES)
+  get_filename_component(ITEM_FILENAME "${ITEM_SOURCE}" NAME_WE)
+  string(REGEX MATCH "^item([0-9][0-9])_" _ "${ITEM_FILENAME}")
+  set(ITEM_NUMBER "${CMAKE_MATCH_1}")
+  add_executable(Item${ITEM_NUMBER} EXCLUDE_FROM_ALL "${ITEM_SOURCE}")
+endforeach()
 
 if(WIN32)
   add_executable(HelloWindow WIN32 src/main.cpp src/main_windows.cpp)
