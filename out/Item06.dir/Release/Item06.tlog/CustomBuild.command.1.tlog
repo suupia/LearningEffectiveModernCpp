@@ -1,0 +1,10 @@
+^C:\USERS\USER\GAMEDEVELOP\LEARNINGEFFECTIVEMODERNCPP\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/user/GameDevelop/LearningEffectiveModernCpp -BC:/Users/user/GameDevelop/LearningEffectiveModernCpp/out --check-stamp-file C:/Users/user/GameDevelop/LearningEffectiveModernCpp/out/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

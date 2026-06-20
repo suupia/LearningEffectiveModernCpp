@@ -1,0 +1,10 @@
+^C:\USERS\USER\GAMEDEVELOP\LEARNINGEFFECTIVEMODERNCPP\OUT\CMAKEFILES\E23B8D97DDAAF6B8E2C8FEDC5A8E1B18\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/user/GameDevelop/LearningEffectiveModernCpp -BC:/Users/user/GameDevelop/LearningEffectiveModernCpp/out --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/user/GameDevelop/LearningEffectiveModernCpp/out/HelloWindow.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
